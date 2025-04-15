@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS2 BattleHub - Турнир</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: #111;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .header {
+            background: #222;
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+        }
+        .header h1 {
+            font-size: 24px;
+            color: #ff6200;
+        }
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #111 0%, #333 100%);
+        }
+        .hero h2 {
+            font-size: 48px;
+            color: #ff6200;
+            text-shadow: 0 0 10px #00ff88;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 20px;
+            color: #ccc;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        .countdown {
+            font-size: 32px;
+            color: #00ff88;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .btn {
+            background: #ff6200;
+            color: #fff;
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #00ff88;
+            color: #000;
+            transform: scale(1.05);
+        }
+        @media (max-width: 600px) {
+            .hero h2 { font-size: 32px; }
+            .hero p { font-size: 16px; }
+            .countdown { font-size: 24px; }
+            .btn { padding: 10px 20px; font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CS2 BattleHub</h1>
+    </div>
+
+    <div class="hero">
+        <h2>Первый CS2 Турнир</h2>
+        <p>Собери команду и сражайся за славу! 5v5, Mirage, сегодня в 20:00.</p>
+        <div class="countdown" id="countdown">00:00:00</div>
+        <a href="https://forms.gle/your-form-link" class="btn" target="_blank">Зарегистрироваться</a>
+    </div>
+
+    <script>
+        // Таймер до 20:00
+        const countdownDate = new Date();
+        countdownDate.setHours(20, 0, 0, 0);
+        const countdownElement = document.getElementById('countdown');
+        function updateCountdown() {
+            const now = new Date();
+            const distance = countdownDate - now;
+            if (distance < 0) {
+                countdownElement.innerHTML = "Турнир начался!";
+                return;
+            }
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            countdownElement.innerHTML = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
